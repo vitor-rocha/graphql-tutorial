@@ -6,10 +6,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _graphqlTools = require('graphql-tools');
 
-var typeDefs = '\n    type Author {\n        age: Int\n        name: String\n        books: [String]\n    }\n\n    type Query {\n        author: [Author]\n    }\n';
+var _resolvers = require('./resolvers');
 
-var schema = (0, _graphqlTools.makeExecutableSchema)({ typeDefs: typeDefs });
+var _resolvers2 = _interopRequireDefault(_resolvers);
 
-(0, _graphqlTools.addMockFunctionsToSchema)({ schema: schema });
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var typeDefs = '\n    type Author {\n        id: Int\n        age: Int\n        name: String\n        books: [String]\n    }\n\n    type Query {\n        authors: [Author]\n        author(id: Int): Author\n    }\n';
+
+var schema = (0, _graphqlTools.makeExecutableSchema)({ typeDefs: typeDefs, resolvers: _resolvers2.default });
 
 exports.default = schema;
