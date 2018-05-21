@@ -3,7 +3,7 @@ import resolvers from './resolvers';
 
 const typeDefs = `
     type Author {
-        id: Int
+        id: String
         age: Int
         name: String
         books: [String]
@@ -11,7 +11,11 @@ const typeDefs = `
 
     type Query {
         authors: [Author]
-        author(id: Int): Author
+        author(id: String): Author
+    }
+
+    type Mutation {
+      addAuthor(name: String!, age: Int!, books: [String]!): Author
     }
 `;
 

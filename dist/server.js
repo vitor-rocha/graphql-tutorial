@@ -10,6 +10,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
 var _schema = require('./schema');
 
 var _schema2 = _interopRequireDefault(_schema);
@@ -29,3 +33,11 @@ server.use('/graphiql', (0, _apolloServerExpress.graphiqlExpress)({
 }));
 
 server.use('/graphql', _bodyParser2.default.json(), (0, _apolloServerExpress.graphqlExpress)({ schema: _schema2.default }));
+
+_mongoose2.default.connect('mongodb://localhost/graphqlTutorial');
+
+var connection = _mongoose2.default.connection;
+
+connection.once('open', function () {
+  console.log('Connection to MongoDB was successfull');
+});

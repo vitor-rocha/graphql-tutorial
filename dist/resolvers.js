@@ -3,29 +3,37 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _authors = [{
-  id: 1,
-  name: 'vitor',
-  age: 24,
-  books: ['book1', 'book2']
-}, {
-  id: 2,
-  name: 'pedro',
-  age: 32,
-  books: ['book3', 'book4']
-}];
+
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _author = require('./models/author');
+
+var _author2 = _interopRequireDefault(_author);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var resolvers = {
   Query: {
     authors: function authors() {
-      return _authors;
+      // return authors
     },
     author: function author(root, _ref) {
-      var id = _ref.id;
+      // return authors.find(author => author.id === id);
 
-      return _authors.find(function (author) {
-        return author.id === id;
-      });
+      var id = _ref.id;
+    }
+  },
+
+  Mutation: {
+    addAuthor: function addAuthor(root, _ref2) {
+      var name = _ref2.name,
+          age = _ref2.age,
+          books = _ref2.books;
+
+      var author = new _author2.default({ name: name, age: age, books: books });
+      return author.save();
     }
   }
 };
