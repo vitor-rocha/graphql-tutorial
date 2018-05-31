@@ -17,12 +17,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var resolvers = {
   Query: {
     authors: function authors() {
-      // return authors
+      return _author2.default.find();
     },
     author: function author(root, _ref) {
-      // return authors.find(author => author.id === id);
-
       var id = _ref.id;
+
+      return _author2.default.findOne({ id: id });
     }
   },
 
@@ -34,6 +34,17 @@ var resolvers = {
 
       var author = new _author2.default({ name: name, age: age, books: books });
       return author.save();
+    },
+    deleteAuthor: function deleteAuthor(root, _ref3) {
+      var id = _ref3.id;
+
+      return _author2.default.findOneAndRemove({ id: id });
+    },
+    updateAuthor: function updateAuthor(root, _ref4) {
+      var id = _ref4.id,
+          name = _ref4.name;
+
+      return _author2.default.findOneAndUpdate({ id: id, name: name });
     }
   }
 };

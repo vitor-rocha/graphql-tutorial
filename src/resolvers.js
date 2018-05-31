@@ -4,10 +4,10 @@ import authorModel from './models/author'
 const resolvers = {
   Query: {
     authors: () => {
-      // return authors
+      return authorModel.find();
     },
     author: (root, { id }) => {
-      // return authors.find(author => author.id === id);
+      return authorModel.findOne({ id });
     }
   },
 
@@ -15,6 +15,12 @@ const resolvers = {
     addAuthor: (root, { name, age, books }) => {
       const author = new authorModel({ name, age, books });
       return author.save();
+    },
+    deleteAuthor: (root, { id }) => {
+      return authorModel.findOneAndRemove({ id });
+    },
+    updateAuthor: (root, { id, name }) => {
+      return authorModel.findOneAndUpdate({ id, name });
     }
   }
 };
